@@ -1,9 +1,1203 @@
-usbiakdas
-sb
-abdsad
-ba
-sd
-sa
-d
-a
-oda
+#MongoCollection
+var MongoClient = require('mongodb').MongoClient;
+var url = "mongodb://localhost:27017/";
+
+MongoClient.connect(url, function(err, db) {
+  if (err) throw err;
+  var dbo = db.db("mydb");
+  dbo.createCollection("customers1", function(err, res) {
+    if (err) throw err;
+    console.log("Collection created!");
+    db.close();
+  });
+});
+
+#MongoDelete
+var MongoClient = require('mongodb').MongoClient;
+var url = "mongodb://localhost:27017/";
+
+MongoClient.connect(url, function(err, db) {
+  if (err) throw err;
+  var dbo = db.db("mydb");
+  /*Delete the first customers with the address "Mountain 21":*/
+  var myquery = { address: 'Mountain 21' };
+  dbo.collection("customers").deleteOne(myquery, function(err, obj) {
+    if (err) throw err;
+    console.log("1 document deleted");
+    db.close();
+  });
+});
+
+#MongoFind
+var MongoClient = require('mongodb').MongoClient;
+var url = "mongodb://localhost:27017/";
+
+MongoClient.connect(url, function(err, db) {
+  if (err) throw err;
+  var dbo = db.db("mydb");
+  dbo.collection("customers").findOne({}, function(err, result) {
+    if (err) throw err;
+    console.log(result.name);
+    db.close();
+  });
+});
+
+#MangoInsert
+var MongoClient = require('mongodb').MongoClient;
+var url = "mongodb://localhost:27017/";
+MongoClient.connect(url, function(err, db) {
+  if (err) throw err;
+  var dbo = db.db("mydb");
+  var myobj = { name: "Company Inc", address: "Highway 37" };
+  dbo.collection("customers").insertOne(myobj, function(err, res) {
+    if (err) throw err;
+    console.log("1 document inserted");
+    db.close();
+  });
+});
+
+#MangoUpdate
+var MongoClient = require('mongodb').MongoClient;
+var url = "mongodb://localhost:27017/";
+
+MongoClient.connect(url, function(err, db) {
+  if (err) throw err;
+  var dbo = db.db("mydb");
+  var myquery = { address: "Valley 345" };
+  var newvalues = { $set: { name: "Michael", address: "Canyon 123" } };
+  dbo.collection("customers").updateOne(myquery, newvalues, function(err, res) {
+    if (err) throw err;
+    console.log("1 document updated");
+    db.close();
+  });
+});
+
+#NodeJSMango
+var MongoClient = require('mongodb').MongoClient;
+var url = "mongodb://localhost:27017/";
+MongoClient.connect(url, function(err, db) {
+  if (err) throw err;
+  var dbo = db.db("mydb");
+  var myobj = { name: "Company Inc", address: "Highway 37" };
+  dbo.collection("customers").insertOne(myobj, function(err, res) {
+    if (err) throw err;
+    console.log("1 document inserted");
+    db.close();
+  });
+});
+
+#http module program:
+var http = require('http');
+var server = http.createServer(function(req, res){
+//write code here
+res.writeHead(200,{'Content-Type':'text/html'}); 
+res.write('Hello World!');//write a response to the client
+res.end();//end the response
+});
+server.listen(5000); //the server object listens on port 5000*/
+
+#url module program
+var url = require('url');
+var adr = 'http://localhost:8080/default.html?name="abc"&dept="cse"';
+var q = url.parse(adr, true);
+console.log(q.host); //localhost:8080
+console.log(q.pathname); //default.html
+console.log(q.search); //name="abc"&dept="cse"
+
+var qdata = q.query; //
+console.log(qdata); //name:abc
+customised module:
+calculatormodule.js file
+// Returns addition of two numbers
+exports.add = function (a, b) {
+    return a+b;
+}; 
+// Returns difference of two numbers
+exports.subtract = function (a, b) {
+    return a-b;
+}; 
+// program to find the factorial of a number
+function factorial(x) {
+
+    // if number is 0
+    if (x === 0) {
+        return 1;
+    }
+
+    // if number is positive
+    else {
+        return x * factorial(x - 1);
+    }
+}
+exports.factorial=factorial;
+// Returns product of two numbers
+exports.multiply = function (a, b) {
+    return a*b;
+};
+
+###calculator.js file
+var c = require('./calculatormodule');
+var a=10, b=5;
+console.log("Addition : "+c.add(a,b));
+console.log("Subtraction : "+c.subtract(a,b));
+console.log("Multiplication : "+c.multiply(a,b));
+console.log(c.factorial(5));
+
+#MongoWithExpress
+const express = require("express");
+const mongoose = require("mongoose");
+const app = express();
+app.use(express.json());
+mongoose.connect("mongodb://localhost:27017/mydb");
+const UserSchema= new mongoose.Schema({
+    name: String,
+    age: Number
+})
+const UserModel= mongoose.model("users",UserSchema)
+app.get("/getUsers", (req, res)=>{
+    UserModel.find({}).then(function(users){
+        res.json(users)
+    }).catch(function(err){
+        console.log(err)
+    })
+})
+app.listen(3001, ()=> {
+    console.log("Server is running");
+});
+
+#Create Database
+var mysql = require('mysql');
+var con = mysql.createConnection({
+  host: "localhost",
+  user: "yourusername",
+  password: "yourpassword"
+});
+con.connect(function(err) {
+  if (err) throw err;
+  console.log("Connected!");
+  con.query("CREATE DATABASE mydb", function (err, result) {
+    if (err) throw err;
+    console.log("Database created");
+  });
+});
+
+#Create Table
+var mysql = require('mysql');
+var con = mysql.createConnection({
+  host: "localhost",
+  user: "yourusername",
+  password: "yourpassword",
+  database: "mydb"
+});
+con.connect(function(err) {
+  if (err) throw err;
+  console.log("Connected!");
+  var sql = "CREATE TABLE customers (name VARCHAR(255), address VARCHAR(255))";
+  con.query(sql, function (err, result) {
+    if (err) throw err;
+    console.log("Table created");
+  });
+});
+
+#Table Insertion
+var mysql = require('mysql');
+var con = mysql.createConnection({
+  host: "localhost",
+  user: "yourusername",
+  password: "yourpassword",
+  database: "mydb"
+});
+con.connect(function(err) {
+  if (err) throw err;
+  console.log("Connected!");
+  var sql = "INSERT INTO customers (name, address) VALUES ('Company Inc', 'Highway 37')";
+  con.query(sql, function (err, result) {
+    if (err) throw err;
+    console.log("1 record inserted");
+  });
+});
+
+#Select from the table
+var mysql = require('mysql');
+var con = mysql.createConnection({
+  host: "localhost",
+  user: "yourusername",
+  password: "yourpassword",
+  database: "mydb"
+});
+con.connect(function(err) {
+  if (err) throw err;
+  con.query("SELECT * FROM customers", function (err, result, fields) {
+    if (err) throw err;
+    console.log(result);
+  });
+});
+
+#Update the table
+var mysql = require('mysql');
+var con = mysql.createConnection({
+  host: "localhost",
+  user: "yourusername",
+  password: "yourpassword",
+  database: "mydb"
+});
+con.connect(function(err) {
+  if (err) throw err;
+  var sql = "UPDATE customers SET address = 'Canyon 123' WHERE address = 'Valley 345'";
+  con.query(sql, function (err, result) {
+    if (err) throw err;
+    console.log(result.affectedRows + " record(s) updated");
+  });
+});
+
+#Delete from the table
+var mysql = require('mysql');
+var con = mysql.createConnection({
+  host: "localhost",
+  user: "yourusername",
+  password: "yourpassword",
+  database: "mydb"
+});
+con.connect(function(err) {
+  if (err) throw err;
+  var sql = "DELETE FROM customers WHERE address = 'Mountain 21'";
+  con.query(sql, function (err, result) {
+    if (err) throw err;
+    console.log("Number of records deleted: " + result.affectedRows);
+  });
+});
+
+#Example to insert record into the database table (GUI based)
+var url = require("url");
+const express = require('express');
+var bodyParser = require('body-parser')
+var mysql = require('mysql');
+var conn=mysql.createConnection({
+host : "localhost",
+user : "root",
+password : "",
+database : "mydb"
+}
+);
+const app = express();
+var urlencodedParser = bodyParser.urlencoded({ extended: false })
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + '/input.html');
+});  
+app.post('/', urlencodedParser, (req, res) => {
+var address=req.body.address;
+	var name=req.body.name;
+res.writeHead(200, {"Content-Type": "text/html"});
+var queryString="insert into customer values('"+name+"','"+address+"')";
+conn.query(queryString, function(error,data,fields)
+{
+if(error)
+{
+throw error;
+}
+else{
+console.log("success");
+}
+}
+)
+conn.end();
+res.write("insertion success");
+});
+app.listen(3000);
+console.log("Server has started.");
+
+###Example to Fetch Records
+const http = require('http');
+const mysql = require('mysql');
+const pool = mysql.createPool({
+  host: '127.0.0.1',
+  user: 'root',
+  password: '',
+  database: 'mydb',
+});
+var reo ='<html><head><title>Node.js MySQL Select</title></head><body><h1>Node.js MySQL Select</h1>{${table}}</body></html>';
+function setResHtml(sql, cb){
+  pool.getConnection((err, con)=>{
+    if(err) throw err;
+    con.query(sql, (err, res, cols)=>{
+      if(err) throw err;
+      var table =''; //to store html table
+      //create html table with data from res.
+      for(var i=0; i<res.length; i++){
+        table +='<tr><td>'+ (i+1) +'</td><td>'+ res[i].name +'</td><td>'+ res[i].address +'</td></tr>';
+      }
+      table ='<table border="1"><tr><th>Nr.</th><th>Name</th><th>Address</th></tr>'+ table +'</table>';
+      con.release(); //Done with mysql connection
+      return cb(table);
+    });
+  });
+}
+let sql ='SELECT name, address FROM customer';
+const server = http.createServer((req, res)=>{
+  setResHtml(sql, resql=>{
+    reo = reo.replace('{${table}}', resql);
+    res.writeHead(200, {'Content-Type':'text/html; charset=utf-8'});
+    res.write(reo, 'utf-8');
+    res.end();
+  });
+});
+server.listen(3000, ()=>{
+  console.log('Server running');
+});
+
+###NodeJSExpress
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Node JS and Database connection </title>
+  <body>
+    <div class="container">
+      <h1>Payroll Application Using Node JS And Database connection </h1>
+      <form action="/" method="POST">
+        <div>
+          <label >Employee ID</label>
+          <input type="text"  name="roll_no">
+	</div>
+	<div>
+          <label>Employee Name</label>
+          <input type="text" name="student_name">
+       	</div>
+         <div>
+          <label>Basic Salary</label>
+          <input type="text" name="student_name">
+       	</div>
+	<div>
+<div>
+          <label >operation</label>
+          <select name="operation">
+		  <option value="add">Add record</option>
+		  <option value="update">Update record</option>
+		  <option value="delete">Delete record</option>
+		  <option value="show">Display record</option>
+		  </select>
+      </div>	  
+        <button type="submit" >Submit</button>
+      </form>
+  </body>
+</html>
+
+const express = require('express');
+var bodyParser = require('body-parser')
+var url = require("url");
+var mysql = require('mysql');
+var conn=mysql.createConnection({
+host : "localhost",
+user : "root",
+password : "",
+database : "mydb"
+}
+);
+const app = express(); 
+var urlencodedParser = bodyParser.urlencoded({ extended: false })   
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + '/index.html');
+});   
+app.post('/', urlencodedParser, (req, res) => {
+	var rollno=req.body.roll_no;
+	var name=req.body.student_name;
+    var sub1=parseInt(req.body.sub1_mark);
+	var sub2=parseInt(req.body.sub2_mark);
+	var sub3=parseInt(req.body.sub3_mark);
+	var op=req.body.operation;
+	var per= (sub1+sub2+sub3)/3;
+    res.writeHead(200, {"Content-Type": "text/html"});
+	if(op=="add")
+	{
+	var queryString="insert into student values('"+rollno+"','"+name+"','"+sub1+"','"+sub2+"','"+sub3+"','"+per+"')";
+conn.query(queryString, function(error,data)
+	{
+if(error)
+{
+throw error;
+}
+else{
+console.log("add success");
+res.write("insertion sucess")
+}
+}//end of con.query
+)}// end of if
+else if(op=="update")
+{
+	var queryString="update student SET name='"+name+"',sub1="+sub1+",sub2="+sub2+",sub3="+sub3+",per="+per+" where rollno="+rollno;
+conn.query(queryString, function(error,data)
+	{
+if(error)
+{
+throw error;
+}
+else{
+console.log("update success");
+res.write("update sucess");
+}
+}
+)
+}
+else if(op=="delete")
+{
+	var queryString="delete from student where rollno="+rollno;
+conn.query(queryString, function(error,data)
+	{
+if(error)
+{
+throw error;
+}
+else{
+console.log("delete success");
+res.write("delete sucess");
+}
+}
+)
+}
+else if(op=="show")
+{
+	var reo ='<html><head><title>Display Data</title></head><body><h1>Display Data</h1>{${table}}</body></html>';
+function setResHtml(sql, cb){
+    conn.query(sql, (err, res, cols)=>{
+      if(err) throw err;
+      var table =''; //to store html table
+      for(var i=0; i<res.length; i++){
+        table +='<tr><td>'+ (i+1) +'</td><td>'+ res[i].rollno +'</td><td>'+ res[i].name +'</td><td>'+ res[i].sub1 +'</td><td>'+ res[i].sub2 +'</td><td>'+ res[i].sub3 +'</td><td>'+ res[i].per +'</td></tr>';
+      }
+      table ='<table border="1"><tr><th>Sr.</th><th>rollno</th><th>Name</th><th>sub1</th><th>sub2</th><th>sub3</th><th>percentage</th></tr>'+ table +'</table>';
+      return cb(table);
+    });
+}
+let sql ='SELECT * FROM student';
+setResHtml(sql, resql=>{
+    reo = reo.replace('{${table}}', resql); 
+    res.write(reo, 'utf-8');
+});
+}
+conn.end();
+});
+app.listen(3000);
+
+###FileSystem
+var fs = require("fs"); 
+
+console.log("writing into existing file"); 
+fs.writeFile('sample1.txt', 'This is node.js class', 'utf8',function(err) { 
+   if (err)  
+      return console.error(err); 
+   }) 
+     
+   console.log("Data written successfully!"); 
+var data2 = "\nWe are learning fs module"; 
+   
+// fs Append data to file 
+fs.appendFile('sample1.txt', data2, 'utf8', function(err)
+ {  
+        if (err) throw err; 
+      
+        //  If no error 
+        console.log("Data is appended to file successfully.") 
+});   
+  
+// Asynchronous - Opening File 
+console.log("opening file!"); 
+fs.open('sample1.txt', 'r+', function(err, fd) { 
+   if (err) { 
+      return console.error(err); 
+   }      
+
+//var buf = new Buffer.alloc(1024); 
+console.log("File opened successfully!"); 
+console.log("reading the file"); 
+     
+   fs.readFile(fd, 'utf-8', function(err, data){ 
+      if (err){ 
+         console.log(err); 
+      } 
+      console.log(data); 
+        
+      // Print only read bytes to avoid junk. 
+      /*if(bytes > 0){ 
+         console.log(buf.slice(0, bytes).toString()); 
+      } */
+      //closing the file
+      fs.close(fd, function(err) {
+         if (err) {
+            console.log(err);
+         } 
+         console.log("File closed successfully.");
+      });
+   });  //closing read
+	
+});//closing open
+/*fs.unlink('sample_http.txt', function (err) {
+  if (err) throw err;
+  console.log('File deleted!');
+});*/
+
+
+###EventNodeJS
+var events = require('events');
+var fs=require('fs');
+//create an object of EventEmitter class by using above reference
+var em = new events.EventEmitter();
+
+//Subscribe for FirstEvent -- adding listeners on or addListener()
+em.on('FirstEvent', function (data) {
+console.log('First subscriber: ' + data);
+});
+em.on('FirstEvent', function (data) {
+console.log('Second subscriber: ' + data);
+});
+em.once('NewEvent',function(data)
+{
+	console.log(data);
+});
+em.on('status',function (code, msg)
+{ 
+	console.log('Got'+code+msg);
+});
+function c1()
+{
+	console.log("event listener removed");
+}
+em.on("error", function(error) 
+{
+    console.error(error);
+});
+fs.open('samplez.txt', 'r+', function(err, fd)
+{ 
+   if (err) { 
+      em.emit("error","File not found");
+   } 
+});
+fs.open('samplez1.txt', 'r+', function(err, fd)
+{ 
+   if (err) { 
+      em.emit("error","File not found12");
+   } 
+});
+// Raising FirstEvent
+em.emit('FirstEvent', 'This is my first Node.js event emitter example.');
+em.emit('FirstEvent', 'This is my Second Node.js event emitter example.');
+em.emit('NewEvent',"my new event");
+em.emit('NewEvent',"my new event");//this event will not be listened
+em.emit('status',200,'OK');
+em.off('status',c1);        
+
+###AjaxXML
+<html>
+<p id="title"></p>
+<p id="author"></p>
+<body>
+<script>
+//Code to send request for XML File
+req=new XMLHttpRequest();
+req.open("GET","bookxml.xml",true);
+req.send();
+req.onreadystatechange=function()
+{
+	if(this.readyState==4 && this.status==200)
+	{
+		alert();
+		myfunction(this);
+	}
+};
+function myfunction(xml)
+{
+    alert("inside Fun");
+	//var xmlDoc=xml.responseXML;
+	xmlDoc = xml.responseXML;
+	alert(xmlDoc);
+	var txt1="";
+	var txt2="";
+	alert("1");
+	a=xmlDoc.getElementsByTagName("title");
+	b=xmlDoc.getElementsByTagName("author");
+	for(i=0;i<a.length;i++)
+	{
+		txt1+=a[i].childNodes[0].nodeValue+"<br>";
+	}
+	for(i=0;i<b.length;i++)
+	{
+		txt2+=b[i].childNodes[0].nodeValue+"<br>";
+	}
+	document.getElementById("title").innerHTML=txt1;
+	document.getElementById("author").innerHTML=txt2;
+	
+}
+</script>
+</body>
+</html>
+
+<?xml version="1.0" encoding="UTF-8"?>
+<bookstore>
+	<book category="Computer">
+		<title lang="en">Web Programing</title>
+		<title lang="en">SAS</title>
+		<author>Smith</author>
+		<price>30</price>
+		<year>2005</year>
+	</book>
+	<book category="cooking">
+       <title lang="en">Everyday Italian</title>
+       <author>Giada De Laurentiis</author>
+       <year>2005</year>
+       <price>30.00</price>
+	</book>
+	<book category="Mechanical">
+		<title lang="en">Thermo Dynamics</title>
+		<author>Mike</author>
+		<price>50</price>
+		<year>2009</year>
+	</book>
+	<book category="Electronics">
+		<title lang="en">Signal Processing</title>
+		<author>Paul</author>
+		<price>30</price>
+		<year>2007</year>
+	</book>
+	<book category="Information Technology">
+		<title lang="en">Information System</title>
+		<author>Ken</author>
+		<price>50</price>
+		<year>2009</year>
+	</book>
+</bookstore>
+
+###AjaxPHP
+<DOCTYPE html!>
+<html>
+<head>
+<title>C225</title>
+</head>
+<style>
+.form{
+  border-style: groove;
+  height: 400px;
+  width: 300px;
+  padding: 15px 32px;
+  font-size: 20px;
+  border-color:DarkSlateblue;
+  border-size:2px solid;
+  background-color:Gainsboro;
+}
+.button {
+  background-color: DarkSlateblue;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+</style>
+<body>
+<center><form class='form' >
+<h2>Course Enrolment</h2>
+Username:<input type='text' id='username'></input><br><br><br>
+Password:<input type='password' id='password'></input><br><br><br>
+Degree:
+<select id='degree' onchange="myfun(this.value)">
+	<option>Select your Degree</option>
+	<option>BTech</option>
+	<option>MBATech</option>
+</select><br><br><br>
+Course:
+<select id='course'>
+	<option>Select your Course</option>
+</select><br><br>
+
+<center><input type='button' value='Submit' class='button' id='submit' onclick='info()'></input></center>
+</form></center>
+
+<script type="text/javascript">
+function myfun(data)
+{
+//alert(data);
+var req=new XMLHttpRequest();
+req.open("GET","http://localhost/student_ajax.php?datavalue="+data,true);
+req.send();
+	req.onreadystatechange=function()
+	{
+		if(req.readyState==4 && req.status==200)
+		{
+            //alert("Inside if");  
+			//document.write(req.responseText);	
+			document.getElementById("course").innerHTML=req.responseText;
+ 			
+		}
+	};
+	
+}
+function info() {
+//alert (working);
+            username = document.getElementById('username').value;
+            degree = document.getElementById('degree').value;
+            course = document.getElementById('course').value;
+            txt = "<h2> The Submitted Data is : </h2><br> username : " + username + "<br>Degree : " + degree + "<br>Course : " + course;
+            document.write(txt);
+}
+</script>
+</body>
+</html>
+<?php
+$data=$_REQUEST['datavalue'];
+$a=array('MachineLearning','DataAnalytics','PythonFundamentals');
+$b=array('WebDevelopment','AdvancePython','DataStructurAndAlgorithm');
+if($data=="BTech")
+{
+	foreach($a as $aone)
+	{
+		echo"<option>$aone</option>";
+	}
+}
+if($data=="MBATech")
+{
+	foreach($b as $aone)
+	{
+		echo"<option>$aone</option>";
+	}
+}
+?>
+
+###AjaxMYSQL
+<html>
+<body>
+Empid&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="t1"/><br><br>
+EmpName&nbsp;&nbsp;<input type="text" id="t2"/><br><br>
+Department&nbsp;&nbsp;<input type="text" id="t3"/><br><br>
+<h1 id="t4"></h1>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="button" onclick="insert()" value="InsertDB"/>
+<script>
+function insert()
+{
+alert();
+var empid=document.getElementById("t1").value;
+var empname=document.getElementById("t2").value;
+var Dept=document.getElementById("t3").value;
+var record=[empid,empname,Dept];
+var req=new XMLHttpRequest();
+req.open("GET","empinsert.php?key="+record,true);
+req.send();
+req.onreadystatechange=function()
+{
+ if(req.readyState==4 && req.status==200)
+ {
+	document.getElementById("t4").innerHTML=req.responseText;
+ }
+ 
+}
+}
+</script>
+<body>
+</html>
+
+<?php 
+$data=$_REQUEST['key'];
+$URLData=explode(",",$data);
+
+//Creating Database connection
+$con= new mysqli("localhost","root","","master");
+if(!$con)
+{
+		die("Connection Failed".mysqli_connect_error());
+}
+$sql="insert into employee(empid,name,Department)values('$URLData[0]','$URLData[1]','$URLData[2]')";
+if(mysqli_query($con,$sql))
+{
+	echo "Record is inserted";
+}
+?>
+
+html>
+<body>
+<div style="border:1px solid red;width:200px;height:200px" id="cust">
+</div>
+<br>
+<input type="button" onclick="display()" value="GetDetails"/>
+<script> 
+function display()
+{
+alert();
+var req=new XMLHttpRequest();
+req.open("GET","customer.php",true);
+req.send();
+req.onreadystatechange=function()
+{
+	if(req.readyState==4 && req.status==200)
+	{
+	    alert("inside if");
+		//document.write(req.ResponseText);
+		document.getElementById("cust").innerHTML=req.responseText;
+	}
+}
+
+}
+
+</script>
+</body>
+</html>
+
+<?php 
+$con=new mysqli("localhost","root","","master");
+if(!$con)
+{
+	die("Connection failed".mysqli_connect_error());
+	
+	
+}
+$str="select * from customer";
+$result=mysqli_query($con,$str);
+
+
+while($row=mysqli_fetch_array($result))
+{ 
+
+	echo  $row[0].$row[1].$row[2]."<br>";
+	
+}
+mysqli_close($con);
+?>
+
+###JSONParseStringify
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>JSON Object Creation in JavaScript</h2>
+
+<p id="demo"></p>
+<p id="demo1"></p>
+<p id="demo2"></p>
+<script>
+var text = 
+'{"name":"John Johnson","street":"Oslo West 16","phone":"555 1234567"}'
+
+var obj = JSON.parse(text);
+
+document.getElementById("demo").innerHTML =
+obj.name + "<br>" + obj.street + "<br>" +obj.phone;
+
+document.write(obj["name"]);
+
+
+var text1 = {name:"John Johnson",street:"Oslo West 16",phone:"555 1234567"}
+
+var obj1=JSON.stringify(text1);
+document.getElementById("demo1").innerHTML = obj1;
+
+</script>
+
+</body>
+</html>
+
+
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>JSON Object Creation in JavaScript</h2>
+
+<p id="demo"></p>
+<p id="demo1"></p>
+<p id="demo2"></p>
+<script>
+var mbatech_class = 
+{		
+		"student":[ 
+		{
+		"name":"xyz",
+		"rollno":"23",
+		"email":["xyz@gmail.com","xyz@nmims.edu"]
+	    },
+		{ 
+		"name":"abc",
+		"rollno":"24",
+		"email":["abc@gmail.com","abc@nmims.edu"]
+	    },
+		{
+		"name":"stu",
+		"rollno":"26",
+		"email":["stu@gmail.com","stu@nmims.edu"]
+	    },
+		{
+		"name":"uvw",
+		"rollno":"30",
+		"email":["uvw@gmail.com","uvw@nmims.edu"]
+	    }
+		]
+
+}
+document.write(mbatech_class.student[1].name);
+for(x in mbatech_class.student)
+{
+	document.write("<br>"+mbatech_class.student[x].name);
+    if(mbatech_class.student[x].name=="abc")
+    {
+    	mbatech_class.student[x].rollno=89;
+    }
+}
+document.write("<br>"+mbatech_class.student[1].rollno);
+delete mbatech_class.student[1];
+for (i in mbatech_class.student) 
+{
+  x += mbatech_class.student[i].rollno + "<br>";
+}
+document.write("<br>"+x);
+
+
+</script>
+</body>
+</html>
+
+
+###JsonArray
+<?php
+$myArr = array("John", "Mary", "Peter", "Sally");
+
+$myJSON = json_encode($myArr);
+
+echo $myJSON;
+?>
+
+###AngularForm
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<body ng-app="Myapp" ng-controller="Myctrl">
+<div>
+First Number:{{4+4}}
+Name:-<input type="text" ng-model="name"/>
+<h1 ng-bind="name"></h1>
+</div>
+<div>
+Second Number:{{3+4}}
+<p>The variables:{{{name:"David",age:"34"}.name}}</p>
+Array{{['Car','Male'][1]}}
+</div>
+<script>
+var app=angular.module('Myapp',[]);
+app.controller("Myctrl",function($scope){
+$scope.name="Suraj"
+});
+</script>
+</body>
+</html>
+
+###AngularTable
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<head>
+<style>
+table{
+width:900px;
+border:0px;
+}
+tr{
+background-color:aqua;
+}
+th{
+background-color:pink;
+}
+td{
+padding:10px;
+}
+</style>
+</head>
+<body ng-app="myapp">
+<div ng-controller="myctrl">
+<select ng-model="selection">
+<option ng-bind="str='Select Operation'"></option>
+<option value="+name">ASC Name</option>
+<option value="-name">DSC Name</option>
+<option value="+DOB">ASC DOB</option>
+<option value="-salary">DSC Salary</option>
+</select>
+
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>DOB</th>
+<th>Gender</th>
+<th>Salary</th>
+</thead>
+</tr>
+<tbody>
+<tr ng-repeat="x in employee|orderBy:selection">
+<td>{{x.name}}</td>
+<td>{{x.DOB|date:"dd/MM/yyyy"}}</td>
+<td>{{x.gender}}</td>
+<td>{{x.salary}}</td>
+</tr>
+</tbody>
+</table>
+
+<script>
+app=angular.module("myapp",[]);
+app.controller("myctrl",function($scope){
+var employee=[{name:"Mike",DOB:new Date("23 nov 2022"),gender:"Male",salary:34444},
+              {name:"Paul",DOB:new Date("12 may 1998"),gender:"Female",salary:3456},
+			  {name:"Smith",DOB:new Date("13 June 1997"),gender:"Male",salary:2344}
+			 ];
+$scope.employee=employee;
+});			 
+</script>
+</div>
+</body>
+</html>
+
+###AngularValidation
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<style>
+input.ng-invalid{background-color:yellow;}
+input.ng-valid{background-color:lawngreen;}
+form.ng-pristine{background-color:aqua;}
+form.ng-dirty{background-color:mediumaquamarine;}
+</style>
+<body ng-app="">
+<form name="myform">
+<h2>My Form</h2>
+FirstName<input name="myname" type="text" ng-model="myname" placeholder="Enter the Name" required ng-minlength="3" ng-maxlength="15"/>
+<span style="color:red">
+<span ng-show="myform.myname.$error.required">Plz enter name</span>
+<span ng-show="myform.myname.$error.minlength">First name is too small</span>
+<span ng-show="myform.myname.$error.maxlength">First name is too big</span>
+<span><br><br>
+Email<input name="email" type="email" ng-model="email" placeholder="Enter the Name" required />
+<span style="color:red">
+<span ng-show="myform.email.$error.required">Plz enter email</span>
+<span ng-show="myform.email.$error.email">Email is incorrect</span>
+<span>
+<br><br>
+<button ng-disabled="myform.myname.$invalid">Submit</button>
+</form>
+</body>
+</html>
+
+###AngularBinding
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<body>
+<div ng-app="myapp" ng-controller="myctrl">
+<input type="text" ng-model="fname">
+<input type="text" ng-model="mycolor" 
+ng-init="mycolor='pink'" style="background-color:{{mycolor}};">
+<p>Your Name{{fname}}</p>
+<p ng-bind="fname"></p>
+
+<ul>
+<li ng-repeat="x in Skills">{{x}}<li/>
+</ul>
+<ul>
+<li ng-repeat="x in customer">{{x.country}}</li>
+</ul>
+</div>
+<script>
+var app=angular.module("myapp",[]);
+app.controller("myctrl",function($scope)
+{
+$scope.fname="Smith";
+$scope.Skills=["HTML","XML","ASP"];
+$scope.customer=[{name:"Smith",country:"USA",age:23},
+                 {name:"Mike",country:"UK",age:34},
+                 {name:"Ram",country:"India",age:34}
+                 ] 				 
+});
+</script>
+</body>
+</html>
+
+###AngularDependency
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<body ng-app="myApp">
+
+<div  ng-controller="myCtrl">
+<h1>{{value}}</h1>
+</div>
+
+<div ng-controller="C">
+<h1>{{value}}</h1>
+</div>
+<div ng-controller="C1">
+<h1>{{value}}</h1>
+</div>
+<div ng-controller="C2">
+<h1>{{value}}</h1>
+</div>
+<script>
+var app = angular.module('myApp', []);
+app.value("numbervalue",9999);
+app.value("Stringvalue","ABVG");
+app.value("ObjectValue",{a:1,b:"dd"});
+app.controller('myCtrl', function($scope,Stringvalue) {
+$scope.value=Stringvalue;
+});
+app.controller('C', function($scope,ObjectValue) {
+$scope.value=ObjectValue;
+
+   
+});
+app.controller('C1', function($scope,myfactory) {
+$scope.value=myfactory;
+
+   
+});
+app.factory("myfactory",function(numbervalue){
+return "value"+numbervalue;
+});
+app.service("myservice",function(){
+this.doit=function()
+{
+return "Hello";
+}
+});
+app.controller('C2', function($scope,myservice) {
+$scope.value=myservice.doit();
+
+   
+});
+
+</script>
+
+</body>
+</html>
+
+###ShoppingCartAngular
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<body>
+
+<div ng-app="ShoppingCart" ng-controller="myctrl" style="border:dotted 1px solid red;background-color:aqua;width:300px;height:250px;">
+<br>
+<ul>
+<li ng-repeat="x in products">{{x}}<span style="color:red" ng-click="remove($index)">&nbsp;&nbsp;X</span></li>
+</ul>
+
+<input type="text" id="t1" ng-model="addMe"/>
+<input type="button" ng-click="Add()" value="AddToCart"/>
+</div>
+<script>
+app=angular.module("ShoppingCart",[]);
+app.controller("myctrl",function($scope){
+$scope.products=["book","Pen","Pen Drive","tea","Milk"];
+$scope.Add=function(){
+$scope.products.push($scope.addMe);
+document.getElementById("t1").value="";
+}
+$scope.remove=function(x)
+{
+$scope.products.splice(x,1);
+}
+});
+</script>
+
+</body>
+</html>

@@ -1,7 +1,6 @@
 #MongoCollection
 var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://localhost:27017/";
-
 MongoClient.connect(url, function(err, db) {
   if (err) throw err;
   var dbo = db.db("mydb");
@@ -15,7 +14,6 @@ MongoClient.connect(url, function(err, db) {
 #MongoDelete
 var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://localhost:27017/";
-
 MongoClient.connect(url, function(err, db) {
   if (err) throw err;
   var dbo = db.db("mydb");
@@ -31,7 +29,6 @@ MongoClient.connect(url, function(err, db) {
 #MongoFind
 var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://localhost:27017/";
-
 MongoClient.connect(url, function(err, db) {
   if (err) throw err;
   var dbo = db.db("mydb");
@@ -59,7 +56,6 @@ MongoClient.connect(url, function(err, db) {
 #MangoUpdate
 var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://localhost:27017/";
-
 MongoClient.connect(url, function(err, db) {
   if (err) throw err;
   var dbo = db.db("mydb");
@@ -103,7 +99,6 @@ var q = url.parse(adr, true);
 console.log(q.host); //localhost:8080
 console.log(q.pathname); //default.html
 console.log(q.search); //name="abc"&dept="cse"
-
 var qdata = q.query; //
 console.log(qdata); //name:abc
 customised module:
@@ -123,7 +118,6 @@ function factorial(x) {
     if (x === 0) {
         return 1;
     }
-
     // if number is positive
     else {
         return x * factorial(x - 1);
@@ -707,10 +701,8 @@ Course:
 <select id='course'>
 	<option>Select your Course</option>
 </select><br><br>
-
 <center><input type='button' value='Submit' class='button' id='submit' onclick='info()'></input></center>
 </form></center>
-
 <script type="text/javascript">
 function myfun(data)
 {
@@ -724,11 +716,9 @@ req.send();
 		{
             //alert("Inside if");  
 			//document.write(req.responseText);	
-			document.getElementById("course").innerHTML=req.responseText;
- 			
+			document.getElementById("course").innerHTML=req.responseText;	
 		}
 	};
-	
 }
 function info() {
 //alert (working);
@@ -833,30 +823,21 @@ req.onreadystatechange=function()
 		document.getElementById("cust").innerHTML=req.responseText;
 	}
 }
-
 }
-
 </script>
 </body>
 </html>
-
 <?php 
 $con=new mysqli("localhost","root","","master");
 if(!$con)
 {
 	die("Connection failed".mysqli_connect_error());
-	
-	
 }
 $str="select * from customer";
 $result=mysqli_query($con,$str);
-
-
 while($row=mysqli_fetch_array($result))
-{ 
-
+{
 	echo  $row[0].$row[1].$row[2]."<br>";
-	
 }
 mysqli_close($con);
 ?>
@@ -865,41 +846,28 @@ mysqli_close($con);
 <!DOCTYPE html>
 <html>
 <body>
-
 <h2>JSON Object Creation in JavaScript</h2>
-
 <p id="demo"></p>
 <p id="demo1"></p>
 <p id="demo2"></p>
 <script>
 var text = 
 '{"name":"John Johnson","street":"Oslo West 16","phone":"555 1234567"}'
-
 var obj = JSON.parse(text);
-
 document.getElementById("demo").innerHTML =
 obj.name + "<br>" + obj.street + "<br>" +obj.phone;
-
 document.write(obj["name"]);
-
-
 var text1 = {name:"John Johnson",street:"Oslo West 16",phone:"555 1234567"}
-
 var obj1=JSON.stringify(text1);
 document.getElementById("demo1").innerHTML = obj1;
-
 </script>
-
 </body>
 </html>
-
 
 <!DOCTYPE html>
 <html>
 <body>
-
 <h2>JSON Object Creation in JavaScript</h2>
-
 <p id="demo"></p>
 <p id="demo1"></p>
 <p id="demo2"></p>
@@ -928,7 +896,6 @@ var mbatech_class =
 		"email":["uvw@gmail.com","uvw@nmims.edu"]
 	    }
 		]
-
 }
 document.write(mbatech_class.student[1].name);
 for(x in mbatech_class.student)
@@ -946,12 +913,9 @@ for (i in mbatech_class.student)
   x += mbatech_class.student[i].rollno + "<br>";
 }
 document.write("<br>"+x);
-
-
 </script>
 </body>
 </html>
-
 
 ###JsonArray
 <?php
@@ -1016,7 +980,6 @@ padding:10px;
 <option value="+DOB">ASC DOB</option>
 <option value="-salary">DSC Salary</option>
 </select>
-
 <table>
 <thead>
 <tr>
@@ -1035,7 +998,6 @@ padding:10px;
 </tr>
 </tbody>
 </table>
-
 <script>
 app=angular.module("myapp",[]);
 app.controller("myctrl",function($scope){
